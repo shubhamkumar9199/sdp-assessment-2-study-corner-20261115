@@ -1,0 +1,128 @@
+GIT COMMANDS - STUDY CORNER
+
+Commands are recorded in execution order. Repeated commands are included.
+HTML and ignore files were edited locally between the relevant Git commands.
+
+Environment checks (before local repository creation)
+
+git --version
+  Check the installed Git version.
+
+git config --get user.name
+  Check the existing author-name setting before creating the project.
+
+git config --get user.email
+  Check the existing email setting; the new repository uses a no-reply address instead.
+
+Repository workflow
+
+01. git init -b main
+    Initialise a local repository and name its first branch main.
+
+02. git config --local user.name 'Shubham Kumar'
+    Set the author name for this repository only.
+
+03. git config --local user.email shubhamkumar9199@users.noreply.github.com
+    Use a GitHub no-reply address for the public commit history.
+
+04. git remote -v
+    Confirm that no remote is configured during local setup.
+
+05. git status --short
+    Show the two new HTML files before the first commit.
+
+06. git add index.html about.html
+    Stage the initial home and about pages.
+
+07. git commit -m 'Add home and about pages'
+    Record the initial project state.
+
+08. git diff -- index.html
+    Display the homepage changes before committing them.
+
+09. git add index.html
+    Stage the updated homepage.
+
+10. git commit -m 'Add study topics to home page'
+    Record the second project version.
+
+11. git branch feature
+    Create the required feature branch from the current commit.
+
+12. git switch feature
+    Switch the working directory to the feature branch.
+
+13. git add about.html
+    Stage the checklist added on the feature branch.
+
+14. git commit -m 'Add Git practice checklist'
+    Save the feature branch change as its own commit.
+
+15. git switch main
+    Return to the main branch before merging.
+
+16. git merge --no-ff feature -m 'Merge feature branch'
+    Merge feature with an explicit merge commit so the branch activity remains visible.
+
+17. git log --oneline --graph --decorate --all
+    Display the commit graph, including the feature branch and merge.
+
+18. git show --no-patch '--format=commit %h%nparents %p%nsubject %s' HEAD
+    Show the merge commit and its two parent commits.
+
+19. git add .gitignore
+    Stage the rules for ignoring log files and the temp folder.
+
+20. git commit -m 'Ignore log files and temporary folder'
+    Save the ignore rules in version control.
+
+21. git check-ignore -v debug.log temp/notes.txt
+    Show the exact ignore rule that matches each sample path.
+
+22. git status --short --ignored
+    Show the sample log and temp folder as ignored entries.
+
+23. git ls-files
+    List the tracked files and confirm that the ignored samples are absent.
+
+24. git rev-parse HEAD
+    Record the commit before the undo demonstration.
+
+25. git add index.html
+    Stage a temporary homepage notice for the undo demonstration.
+
+26. git commit -m 'Add temporary closure notice'
+    Create an additional commit that will be undone next.
+
+27. git show --format=short HEAD -- index.html
+    Show the extra commit and the notice it added.
+
+28. git revert --no-edit HEAD
+    Undo the latest commit by adding an inverse commit, preserving the original history.
+
+29. git show --format=short HEAD -- index.html
+    Show that the revert removes the temporary notice.
+
+30. git diff 'HEAD~2' HEAD -- index.html
+    Verify that the homepage matches its state before the temporary commit; no output means no difference.
+
+31. git status
+    Confirm that the tracked working tree is clean after the revert.
+
+32. git log --oneline --graph --decorate --all
+    Show the complete local history, including the original commit and its revert.
+
+33. git add README.md git_commands.txt local_workflow_transcript.txt
+    Stage the project notes, command documentation, and local execution evidence.
+
+34. git commit -m 'Document the Git workflow'
+    Include the command file and local evidence in the repository.
+
+35. git status
+    Check that the tracked working tree is clean after adding the documentation.
+
+36. git log --oneline --graph --decorate --all
+    Display the local history after documenting the workflow.
+
+37. git log '--format=%H|%P|%s' --all
+    Record full commit hashes and parent relationships for the report.

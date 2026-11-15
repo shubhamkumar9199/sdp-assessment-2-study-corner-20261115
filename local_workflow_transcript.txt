@@ -1,0 +1,172 @@
+$ git init -b main
+Initialized empty Git repository in /Users/shubhamkumar/sdp-assessment-2/study-corner/.git/
+
+$ git config --local user.name 'Shubham Kumar'
+[No output]
+
+$ git config --local user.email shubhamkumar9199@users.noreply.github.com
+[No output]
+
+$ git remote -v
+[No output]
+
+$ git status --short
+?? about.html
+?? index.html
+
+$ git add index.html about.html
+[No output]
+
+$ git commit -m 'Add home and about pages'
+[main (root-commit) 8883e41] Add home and about pages
+ 2 files changed, 35 insertions(+)
+ create mode 100644 about.html
+ create mode 100644 index.html
+
+$ git diff -- index.html
+diff --git a/index.html b/index.html
+index aecd314..7a36ef3 100644
+--- a/index.html
++++ b/index.html
+@@ -13,6 +13,8 @@
+   <main>
+     <h2>Welcome</h2>
+     <p>A small website for keeping software development study notes.</p>
++    <h2>Topics to revise</h2>
++    <p>Git, software testing, and Docker deployment.</p>
+   </main>
+ </body>
+ </html>
+
+$ git add index.html
+[No output]
+
+$ git commit -m 'Add study topics to home page'
+[main f7fdace] Add study topics to home page
+ 1 file changed, 2 insertions(+)
+
+$ git branch feature
+[No output]
+
+$ git switch feature
+Switched to branch 'feature'
+
+$ git add about.html
+[No output]
+
+$ git commit -m 'Add Git practice checklist'
+[feature fbec276] Add Git practice checklist
+ 1 file changed, 6 insertions(+)
+
+$ git switch main
+Switched to branch 'main'
+
+$ git merge --no-ff feature -m 'Merge feature branch'
+Merge made by the 'ort' strategy.
+ about.html | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+$ git log --oneline --graph --decorate --all
+*   854d33b (HEAD -> main) Merge feature branch
+|\  
+| * fbec276 (feature) Add Git practice checklist
+|/  
+* f7fdace Add study topics to home page
+* 8883e41 Add home and about pages
+
+$ git show --no-patch '--format=commit %h%nparents %p%nsubject %s' HEAD
+commit 854d33b
+parents f7fdace fbec276
+subject Merge feature branch
+
+$ git add .gitignore
+[No output]
+
+$ git commit -m 'Ignore log files and temporary folder'
+[main 0dc19ea] Ignore log files and temporary folder
+ 1 file changed, 2 insertions(+)
+ create mode 100644 .gitignore
+
+$ git check-ignore -v debug.log temp/notes.txt
+.gitignore:1:*.log	debug.log
+.gitignore:2:temp/	temp/notes.txt
+
+$ git status --short --ignored
+!! debug.log
+!! temp/
+
+$ git ls-files
+.gitignore
+about.html
+index.html
+
+$ git rev-parse HEAD
+0dc19ea8b6239c7fef61e0b0097d2b48e4218c7e
+
+$ git add index.html
+[No output]
+
+$ git commit -m 'Add temporary closure notice'
+[main b459daf] Add temporary closure notice
+ 1 file changed, 1 insertion(+)
+
+$ git show --format=short HEAD -- index.html
+commit b459dafac667635a42223eda64fd1180610ca59f
+Author: Shubham Kumar <shubhamkumar9199@users.noreply.github.com>
+
+    Add temporary closure notice
+
+diff --git a/index.html b/index.html
+index 7a36ef3..0d28219 100644
+--- a/index.html
++++ b/index.html
+@@ -15,6 +15,7 @@
+     <p>A small website for keeping software development study notes.</p>
+     <h2>Topics to revise</h2>
+     <p>Git, software testing, and Docker deployment.</p>
++    <p id="temporary-notice">Study Corner is temporarily closed.</p>
+   </main>
+ </body>
+ </html>
+
+$ git revert --no-edit HEAD
+[main 2b4031e] Revert "Add temporary closure notice"
+ Date: Sun Nov 15 23:14:01 2026 +0530
+ 1 file changed, 1 deletion(-)
+
+$ git show --format=short HEAD -- index.html
+commit 2b4031e1d3df5c746552824ded52c3583830cae2
+Author: Shubham Kumar <shubhamkumar9199@users.noreply.github.com>
+
+    Revert "Add temporary closure notice"
+
+diff --git a/index.html b/index.html
+index 0d28219..7a36ef3 100644
+--- a/index.html
++++ b/index.html
+@@ -15,7 +15,6 @@
+     <p>A small website for keeping software development study notes.</p>
+     <h2>Topics to revise</h2>
+     <p>Git, software testing, and Docker deployment.</p>
+-    <p id="temporary-notice">Study Corner is temporarily closed.</p>
+   </main>
+ </body>
+ </html>
+
+$ git diff 'HEAD~2' HEAD -- index.html
+[No output]
+
+$ git status
+On branch main
+nothing to commit, working tree clean
+
+$ git log --oneline --graph --decorate --all
+* 2b4031e (HEAD -> main) Revert "Add temporary closure notice"
+* b459daf Add temporary closure notice
+* 0dc19ea Ignore log files and temporary folder
+*   854d33b Merge feature branch
+|\  
+| * fbec276 (feature) Add Git practice checklist
+|/  
+* f7fdace Add study topics to home page
+* 8883e41 Add home and about pages
