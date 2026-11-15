@@ -126,3 +126,41 @@ Repository workflow
 
 37. git log '--format=%H|%P|%s' --all
     Record full commit hashes and parent relationships for the report.
+
+38. git remote add origin https://github.com/shubhamkumar9199/sdp-assessment-2-study-corner-20261115.git
+    Connect the existing local repository to the new GitHub repository.
+
+39. git remote -v
+    Show the fetch and push URLs for the new origin remote.
+
+40. git add git_commands.txt
+    Stage the documentation of GitHub integration and final verification commands.
+
+41. git commit -m 'Document GitHub publishing commands'
+    Save the remaining command documentation before publishing.
+
+42. git -c credential.helper= -c 'credential.helper=!gh auth git-credential' push -u origin main feature
+    Push main and feature, and set their upstreams. The temporary helper uses the GitHub CLI login without saving credentials in the repository.
+
+43. git ls-remote --heads origin main feature
+    Verify that both branch references exist on GitHub.
+
+44. git log --oneline --graph --decorate --all
+    Display the final graph with local and remote branch labels.
+
+45. git log '--format=%H|%P|%s' --all
+    Record the final commit hashes and parent relationships for the report.
+
+46. git status
+    Confirm that the tracked working tree is clean and main is up to date with origin/main.
+
+GitHub CLI commands used with the workflow
+
+gh api user --jq '{login: .login, name: .name}'
+  Identify the signed-in account that will own the repository.
+
+gh repo create shubhamkumar9199/sdp-assessment-2-study-corner-20261115 --public --description 'Study Corner: a two-page website with a documented Git branch, merge, ignore, and revert workflow.'
+  Create an empty public repository after the local Git workflow is complete.
+
+gh repo view shubhamkumar9199/sdp-assessment-2-study-corner-20261115 --json url,isPrivate,defaultBranchRef
+  Verify the repository URL, public visibility, and default branch on GitHub.
